@@ -1,0 +1,153 @@
+<head>
+	<button id="step" onClick="start()">Step 1</button>
+<meta charset="utf-8" />
+<title>HTML5 Canvas Drawing Board</title>
+<script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2">
+</script>
+<script>
+  var remove = "False"
+  var board;
+  var content;
+  var img;
+  function start() {
+    window.resizeTo(900,500)
+    board = document.getElementById("board")
+    content = board.getContext("2d")
+    document.getElementById("step").style.display = "none";
+    document.getElementById("pen").style.display = "inline"
+    document.getElementById("eraser").style.display = "inline"
+    document.getElementById("clear").style.display = "inline"
+    document.getElementById("close").style.display = "inline"
+    board.style.visibility = "visible"
+    if(img){
+    	content.putImageData(img)
+    }
+    
+    // Fill Window Width and Height
+    
+    board.width = window.innerWidth;
+	board.height = window.innerHeight;
+	// Set Background Color
+    content.fillStyle="#fff";
+    content.fillRect(0,0,board.width,board.height);
+	
+    // Mouse Event Handlers
+	if(board){
+		var isDown = false;
+		var canvasX, canvasY;
+		content.lineWidth = 5;
+		
+		$(board)
+		.mousedown(function(e){
+			isDown = true;
+			content.beginPath();
+			canvasX = e.pageX - board.offsetLeft;
+			canvasY = e.pageY - board.offsetTop;
+			content.moveTo(canvasX, canvasY);
+		})
+		.mousemove(function(e){
+			if(isDown !== false) {
+				canvasX = e.pageX - board.offsetLeft;
+				canvasY = e.pageY - board.offsetTop;
+				content.lineTo(canvasX, canvasY);
+              	if(remove=="True"){
+					content.strokeStyle = "#FFF";
+                }else{
+                	content.strokeStyle = "#000";
+                }
+				content.stroke();
+			}
+		})
+		.mouseup(function(e){
+			isDown = false;
+			content.closePath();
+		});
+	}
+	
+	// Touch Events Handlers
+	draw = {
+		started: false,
+		start: function(evt) {
+
+			content.beginPath();
+			content.moveTo(
+				evt.touches[0].pageX,
+				evt.touches[0].pageY
+			);
+
+			this.started = true;
+
+		},
+		move: function(evt) {
+
+			if (this.started) {
+				content.lineTo(
+					evt.touches[0].pageX,
+					evt.touches[0].pageY
+				);
+
+				if(remove=="True"){
+					content.strokeStyle = "#FFF";
+                }else{
+                	content.strokeStyle = "#000";
+                }
+				content.lineWidth = 5;
+				content.stroke();
+			}
+
+		},
+		end: function(evt) {
+			this.started = false;
+		}
+	};
+	
+	// Touch Events
+	board.addEventListener('touchstart', draw.start, false);
+	board.addEventListener('touchend', draw.end, false);
+	board.addEventListener('touchmove', draw.move, false);
+	
+	// Disable Page Move
+	document.body.addEventListener('touchmove',function(evt){
+		evt.preventDefault();
+	},false);
+};
+
+  function clear_func() {
+    var board = document.getElementById("board");
+	var content = board.getContext("2d");
+    
+    // Fill Window Width and Height
+    board.width = window.innerWidth;
+	board.height = window.innerHeight;
+	
+	// Erase board
+    content.clearRect(0,0,board.width,board.height);
+  }
+  function pen_mode(){
+  	remove = "False";
+  }
+  function erase() {
+    remove = "True";
+  }
+  function minimize(){
+  	document.getElementById("step").style.display = "inline";
+    board.style.visibility = "hidden";
+    document.getElementById("pen").style.display = "none"
+    document.getElementById("eraser").style.display = "none"
+    document.getElementById("clear").style.display = "none"
+    document.getElementById("close").style.display = "none"
+    img = content.getImageData(0,0,window.innerWidth,window.innerHeight)
+  }
+</script>
+
+</head>
+<button id="pen" onClick="pen_mode()" style="display:none">Pen</button>
+<button id="eraser" onClick="erase()" style="display:none" >Eraser</button>
+<button id="clear" onClick="clear_func()" style="display:none" >Clear</button>
+<button id="close" onClick="minimize()" style="display:none" >Close</button>
+<body>
+	<canvas id="board">
+		Your browser does not support this feature.
+	</canvas>
+</body>
+</html>
