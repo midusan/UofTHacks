@@ -1,66 +1,75 @@
 <head>
-	<button id="step" onClick="start()">Step 1</button>
-<meta charset="utf-8" />
+  <div id="steps">
+	<button id="step_one" onClick="start_one()" style="background:#e7e7e7;margin-right:-4px;margin-left:-4px;padding: 125px 216px;font-size: 16px;">Step 1</button>
+    <button id="step_two" onClick="start_two()" style="background-color:#e7e7e7;margin-right:-4px;margin-left:-4px;padding: 125px 216px;font-size: 16px;">Step 2</button>
+    <button id="step_three" onClick="start_three()" style="background-color:#e7e7e7;margin-right:-4px;margin-left:-4px;padding: 150px 136.3px;font-size: 16px;">Step 3</button>
+    <button id="step_four" onClick="start_four()" style="background-color:#e7e7e7;margin-right:-4px;margin-left:-4px;padding: 150px 136.3px;font-size: 16px;">Step 4</button>
+    <button id="step_five" onClick="start_five()" style="background-color:#e7e7e7;margin-right:-4px;margin-left:-4px;padding: 150px 136.3px;font-size: 16px;">Step 5</button>
+  </div>
+    <meta charset="utf-8" />
 <title>HTML5 Canvas Drawing Board</title>
 <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2">
 </script>
 <script>
-  var remove = "False"
-  var board;
-  var content;
-  var img;
-  function start() {
-    window.resizeTo(900,500)
-    board = document.getElementById("board")
-    content = board.getContext("2d")
-    document.getElementById("step").style.display = "none";
-    document.getElementById("pen").style.display = "inline"
-    document.getElementById("eraser").style.display = "inline"
-    document.getElementById("clear").style.display = "inline"
-    document.getElementById("close").style.display = "inline"
-    board.style.visibility = "visible"
-    if(img){
-    	content.putImageData(img)
+  var remove_one = "False";
+  var board_one;
+  var content_one;
+  var img_one;
+  function start_one() {
+    board_one = document.getElementById("board_one")
+    content_one = board_one.getContext("2d")
+    document.getElementById("step_one").style.display = "none";
+    document.getElementById("step_two").style.display = "none";
+    document.getElementById("step_three").style.display = "none";
+    document.getElementById("step_four").style.display = "none";
+    document.getElementById("step_five").style.display = "none";
+    document.getElementById("pen_one").style.display = "inline"
+    document.getElementById("eraser_one").style.display = "inline"
+    document.getElementById("clear_o").style.display = "inline"
+    document.getElementById("close_o").style.display = "inline"
+    board_one.style.display = "inline"
+    if(img_one){
+    	content_one.putImageData(img_one);
     }
     
     // Fill Window Width and Height
     
-    board.width = window.innerWidth;
-	board.height = window.innerHeight;
+    board_one.width = window.innerWidth;
+	board_one.height = window.innerHeight;
 	// Set Background Color
-    content.fillStyle="#fff";
-    content.fillRect(0,0,board.width,board.height);
+    content_one.fillStyle="#fff";
+    content_one.fillRect(0,0,board_one.width,board_one.height);
 	
     // Mouse Event Handlers
-	if(board){
+	if(board_one){
 		var isDown = false;
 		var canvasX, canvasY;
-		content.lineWidth = 5;
+		content_one.lineWidth = 5;
 		
-		$(board)
+		$(board_one)
 		.mousedown(function(e){
 			isDown = true;
-			content.beginPath();
-			canvasX = e.pageX - board.offsetLeft;
-			canvasY = e.pageY - board.offsetTop;
-			content.moveTo(canvasX, canvasY);
+			content_one.beginPath();
+			canvasX = e.pageX - board_one.offsetLeft;
+			canvasY = e.pageY - board_one.offsetTop;
+			content_one.moveTo(canvasX, canvasY);
 		})
 		.mousemove(function(e){
 			if(isDown !== false) {
-				canvasX = e.pageX - board.offsetLeft;
-				canvasY = e.pageY - board.offsetTop;
-				content.lineTo(canvasX, canvasY);
-              	if(remove=="True"){
-					content.strokeStyle = "#FFF";
+				canvasX = e.pageX - board_one.offsetLeft;
+				canvasY = e.pageY - board_one.offsetTop;
+				content_one.lineTo(canvasX, canvasY);
+              	if(remove_one=="True"){
+					content_one.strokeStyle = "#FFF";
                 }else{
-                	content.strokeStyle = "#000";
+                	content_one.strokeStyle = "#000";
                 }
-				content.stroke();
+				content_one.stroke();
 			}
 		})
 		.mouseup(function(e){
 			isDown = false;
-			content.closePath();
+			content_one.closePath();
 		});
 	}
 	
@@ -69,8 +78,8 @@
 		started: false,
 		start: function(evt) {
 
-			content.beginPath();
-			content.moveTo(
+			content_one.beginPath();
+			content_one.moveTo(
 				evt.touches[0].pageX,
 				evt.touches[0].pageY
 			);
@@ -81,18 +90,18 @@
 		move: function(evt) {
 
 			if (this.started) {
-				content.lineTo(
+				content_one.lineTo(
 					evt.touches[0].pageX,
 					evt.touches[0].pageY
 				);
 
-				if(remove=="True"){
-					content.strokeStyle = "#FFF";
+				if(remove_one=="True"){
+					content_one.strokeStyle = "#FFF";
                 }else{
-                	content.strokeStyle = "#000";
+                	content_one.strokeStyle = "#000";
                 }
-				content.lineWidth = 5;
-				content.stroke();
+				content_one.lineWidth = 5;
+				content_one.stroke();
 			}
 
 		},
@@ -102,9 +111,9 @@
 	};
 	
 	// Touch Events
-	board.addEventListener('touchstart', draw.start, false);
-	board.addEventListener('touchend', draw.end, false);
-	board.addEventListener('touchmove', draw.move, false);
+	board_one.addEventListener('touchstart', draw.start, false);
+	board_one.addEventListener('touchend', draw.end, false);
+	board_one.addEventListener('touchmove', draw.move, false);
 	
 	// Disable Page Move
 	document.body.addEventListener('touchmove',function(evt){
@@ -112,42 +121,701 @@
 	},false);
 };
 
-  function clear_func() {
-    var board = document.getElementById("board");
-	var content = board.getContext("2d");
+  function clear_func_o() {
+    var board_one = document.getElementById("board_one");
+	var content_one = board_one.getContext("2d");
     
     // Fill Window Width and Height
-    board.width = window.innerWidth;
-	board.height = window.innerHeight;
+    board_one.width = window.innerWidth;
+	board_one.height = window.innerHeight;
 	
 	// Erase board
-    content.clearRect(0,0,board.width,board.height);
+    content_one.clearRect(0,0,board_one.width,board_one.height);
   }
-  function pen_mode(){
-  	remove = "False";
+  function pen_one(){
+  	remove_one = "False";
   }
-  function erase() {
-    remove = "True";
+  function erase_one() {
+    remove_one = "True";
   }
-  function minimize(){
-  	document.getElementById("step").style.display = "inline";
-    board.style.visibility = "hidden";
-    document.getElementById("pen").style.display = "none"
-    document.getElementById("eraser").style.display = "none"
-    document.getElementById("clear").style.display = "none"
-    document.getElementById("close").style.display = "none"
-    img = content.getImageData(0,0,window.innerWidth,window.innerHeight)
+  function minimize_o(){
+    document.getElementById("step_two").style.display = "inline";
+    document.getElementById("step_three").style.display = "inline";
+    document.getElementById("step_four").style.display = "inline";
+    document.getElementById("step_five").style.display = "inline";
+    board_one.style.display = "none";
+    document.getElementById("pen_one").style.display = "none"
+    document.getElementById("eraser_one").style.display = "none"
+    document.getElementById("clear_o").style.display = "none"
+    document.getElementById("close_o").style.display = "none"
+    img_one = content_one.getImageData(0,0,window.innerWidth,window.innerHeight)
+    if (img_one){
+        var replace_one = document.createElement("img")
+        replace_one.src = board_one.toDataURL()
+		replace_one.id = "replaced_one"
+        replace_one.onclick = function(){
+        	start_one();
+        }
+        replace_one.style.width = "125px"
+        replace_one.style.height = "216px"
+    	document.getElementById("step_one").src = replace_one.src
+        var steps = document.getElementById("steps")
+        steps.insertBefore(replace_one,document.getElementById("step_one"))
+    }
+  }
+</script>
+<script>
+  var remove_two = "False";
+  var board_two;
+  var content_two;
+  var img_two;
+  function start_two() {
+    board_two = document.getElementById("board_two")
+    content_two = board_two.getContext("2d")
+    document.getElementById("step_one").style.display = "none";
+    document.getElementById("step_two").style.display = "none";
+    document.getElementById("step_three").style.display = "none";
+    document.getElementById("step_four").style.display = "none";
+    document.getElementById("step_five").style.display = "none";
+    document.getElementById("pen_two").style.display = "inline"
+    document.getElementById("eraser_two").style.display = "inline"
+    document.getElementById("clear_t").style.display = "inline"
+    document.getElementById("close_t").style.display = "inline"
+    board_two.style.display = "inline"
+    if(img_two){
+    	content_two.putImageData(img_two)
+    }
+    
+    // Fill Window Width and Height
+    
+    board_two.width = window.innerWidth;
+	board_two.height = window.innerHeight;
+	// Set Background Color
+    content_two.fillStyle="#fff";
+    content_two.fillRect(0,0,board_two.width,board_two.height);
+	
+    // Mouse Event Handlers
+	if(board_two){
+		var isDown = false;
+		var canvasX, canvasY;
+		content_two.lineWidth = 5;
+		
+		$(board_two)
+		.mousedown(function(e){
+			isDown = true;
+			content_two.beginPath();
+			canvasX = e.pageX - board_two.offsetLeft;
+			canvasY = e.pageY - board_two.offsetTop;
+			content_two.moveTo(canvasX, canvasY);
+		})
+		.mousemove(function(e){
+			if(isDown !== false) {
+				canvasX = e.pageX - board_two.offsetLeft;
+				canvasY = e.pageY - board_two.offsetTop;
+				content_two.lineTo(canvasX, canvasY);
+              	if(remove_two=="True"){
+					content_two.strokeStyle = "#FFF";
+                }else{
+                	content_two.strokeStyle = "#000";
+                }
+				content_two.stroke();
+			}
+		})
+		.mouseup(function(e){
+			isDown = false;
+			content_two.closePath();
+		});
+	}
+	
+	// Touch Events Handlers
+	draw = {
+		started: false,
+		start: function(evt) {
+
+			content_two.beginPath();
+			content_two.moveTo(
+				evt.touches[0].pageX,
+				evt.touches[0].pageY
+			);
+
+			this.started = true;
+
+		},
+		move: function(evt) {
+
+			if (this.started) {
+				content_two.lineTo(
+					evt.touches[0].pageX,
+					evt.touches[0].pageY
+				);
+
+				if(remove_two=="True"){
+					content_two.strokeStyle = "#FFF";
+                }else{
+                	content_two.strokeStyle = "#000";
+                }
+				content_two.lineWidth = 5;
+				content_two.stroke();
+			}
+
+		},
+		end: function(evt) {
+			this.started = false;
+		}
+	};
+	
+	// Touch Events
+	board_two.addEventListener('touchstart', draw.start, false);
+	board_two.addEventListener('touchend', draw.end, false);
+	board_two.addEventListener('touchmove', draw.move, false);
+	
+	// Disable Page Move
+	document.body.addEventListener('touchmove',function(evt){
+		evt.preventDefault();
+	},false);
+};
+
+  function clear_func_t() {
+    var board_two = document.getElementById("board_two");
+	var content_two = board_two.getContext("2d");
+    
+    // Fill Window Width and Height
+    board_two.width = window.innerWidth;
+	board_two.height = window.innerHeight;
+	
+	// Erase board
+    content_two.clearRect(0,0,board_two.width,board_two.height);
+  }
+  function pen_two(){
+  	remove_two = "False";
+  }
+  function erase_two() {
+    remove_two = "True";
+  }
+  function minimize_t(){
+    document.getElementById("step_three").style.display = "inline";
+    document.getElementById("step_four").style.display = "inline";
+    document.getElementById("step_five").style.display = "inline";
+    board_two.style.display = "none";
+    document.getElementById("pen_two").style.display = "none"
+    document.getElementById("eraser_two").style.display = "none"
+    document.getElementById("clear_t").style.display = "none"
+    document.getElementById("close_t").style.display = "none"
+    img_two = content_two.getImageData(0,0,window.innerWidth,window.innerHeight)
+	if (img_two){
+        var replace_two = document.createElement("img")
+        replace_two.src = board_two.toDataURL()
+        replace_two.onclick = function(){
+        	start_two();
+        }
+		replace_two.id = "replaced_two"
+        replace_two.style.width = "125px"
+        replace_two.style.height = "216px"
+    	document.getElementById("step_two").src = replace_two.src
+        var steps = document.getElementById("steps")
+        steps.insertBefore(replace_two,document.getElementById("step_two"))
+    }
+  }
+</script>
+<script>
+  var remove_three = "False";
+  var board_three;
+  var content_three;
+  var img_three;
+  function start_three() {
+    board_three = document.getElementById("board_three")
+    content_three = board_three.getContext("2d")
+    document.getElementById("step_one").style.display = "none";
+    document.getElementById("step_two").style.display = "none";
+    document.getElementById("step_three").style.display = "none";
+    document.getElementById("step_four").style.display = "none";
+    document.getElementById("step_five").style.display = "none";
+    document.getElementById("pen_three").style.display = "inline"
+    document.getElementById("eraser_three").style.display = "inline"
+    document.getElementById("clear_th").style.display = "inline"
+    document.getElementById("close_th").style.display = "inline"
+    board_three.style.display = "inline"
+    if(img_three){
+    	content_three.putImageData(img_three)
+    }
+    
+    // Fill Window Width and Height
+    
+    board_three.width = window.innerWidth;
+	board_three.height = window.innerHeight;
+	// Set Background Color
+    content_three.fillStyle="#fff";
+    content_three.fillRect(0,0,board_three.width,board_three.height);
+	
+    // Mouse Event Handlers
+	if(board_three){
+		var isDown = false;
+		var canvasX, canvasY;
+		content_three.lineWidth = 5;
+		
+		$(board_three)
+		.mousedown(function(e){
+			isDown = true;
+			content_three.beginPath();
+			canvasX = e.pageX - board_three.offsetLeft;
+			canvasY = e.pageY - board_three.offsetTop;
+			content_three.moveTo(canvasX, canvasY);
+		})
+		.mousemove(function(e){
+			if(isDown !== false) {
+				canvasX = e.pageX - board_three.offsetLeft;
+				canvasY = e.pageY - board_three.offsetTop;
+				content_three.lineTo(canvasX, canvasY);
+              	if(remove_three=="True"){
+					content_three.strokeStyle = "#FFF";
+                }else{
+                	content_three.strokeStyle = "#000";
+                }
+				content_three.stroke();
+			}
+		})
+		.mouseup(function(e){
+			isDown = false;
+			content_three.closePath();
+		});
+	}
+	
+	// Touch Events Handlers
+	draw = {
+		started: false,
+		start: function(evt) {
+
+			content_three.beginPath();
+			content_three.moveTo(
+				evt.touches[0].pageX,
+				evt.touches[0].pageY
+			);
+
+			this.started = true;
+
+		},
+		move: function(evt) {
+
+			if (this.started) {
+				content_three.lineTo(
+					evt.touches[0].pageX,
+					evt.touches[0].pageY
+				);
+
+				if(remove_three=="True"){
+					content_three.strokeStyle = "#FFF";
+                }else{
+                	content_three.strokeStyle = "#000";
+                }
+				content_three.lineWidth = 5;
+				content_three.stroke();
+			}
+
+		},
+		end: function(evt) {
+			this.started = false;
+		}
+	};
+	
+	// Touch Events
+	board_three.addEventListener('touchstart', draw.start, false);
+	board_three.addEventListener('touchend', draw.end, false);
+	board_three.addEventListener('touchmove', draw.move, false);
+	
+	// Disable Page Move
+	document.body.addEventListener('touchmove',function(evt){
+		evt.preventDefault();
+	},false);
+};
+
+  function clear_func_th() {
+    var board_three = document.getElementById("board_three");
+	var content_three = board_three.getContext("2d");
+    
+    // Fill Window Width and Height
+    board_three.width = window.innerWidth;
+	board_three.height = window.innerHeight;
+	
+	// Erase board
+    content_three.clearRect(0,0,board_three.width,board_three.height);
+  }
+  function pen_three(){
+  	remove_three = "False";
+  }
+  function erase_three() {
+    remove_three = "True";
+  }
+  function minimize_th(){
+    document.getElementById("step_four").style.display = "inline";
+    document.getElementById("step_five").style.display = "inline";
+    board_three.style.display = "none";
+    document.getElementById("pen_three").style.display = "none"
+    document.getElementById("eraser_three").style.display = "none"
+    document.getElementById("clear_th").style.display = "none"
+    document.getElementById("close_th").style.display = "none"
+    img_three = content_three.getImageData(0,0,window.innerWidth,window.innerHeight)
+    if (img_three){
+        var replace_three = document.createElement("img")
+        replace_three.src = board_three.toDataURL()
+        replace_three.onclick = function(){
+        	start_three();
+        }
+		replace_three.id = "replaced_three"
+        replace_three.style.width = "125px"
+        replace_three.style.height = "216px"
+    	document.getElementById("step_three").src = replace_three.src
+        var steps = document.getElementById("steps")
+        steps.insertBefore(replace_three,document.getElementById("step_three"))
+    }
+  }
+</script>
+<script>
+  var remove_four = "False";
+  var board_four;
+  var content_four;
+  var img_four;
+  function start_four() {
+    board_four = document.getElementById("board_four")
+    content_four = board_four.getContext("2d")
+    document.getElementById("step_one").style.display = "none";
+    document.getElementById("step_two").style.display = "none";
+    document.getElementById("step_three").style.display = "none";
+    document.getElementById("step_four").style.display = "none";
+    document.getElementById("step_five").style.display = "none";
+    document.getElementById("pen_four").style.display = "inline"
+    document.getElementById("eraser_four").style.display = "inline"
+    document.getElementById("clear_f").style.display = "inline"
+    document.getElementById("close_f").style.display = "inline"
+    board_four.style.display = "inline"
+    if(img_four){
+    	content_four.putImageData(img_four)
+    }
+    
+    // Fill Window Width and Height
+    
+    board_four.width = window.innerWidth;
+	board_four.height = window.innerHeight;
+	// Set Background Color
+    content_four.fillStyle="#fff";
+    content_four.fillRect(0,0,board_four.width,board_four.height);
+	
+    // Mouse Event Handlers
+	if(board_four){
+		var isDown = false;
+		var canvasX, canvasY;
+		content_four.lineWidth = 5;
+		
+		$(board_four)
+		.mousedown(function(e){
+			isDown = true;
+			content_four.beginPath();
+			canvasX = e.pageX - board_four.offsetLeft;
+			canvasY = e.pageY - board_four.offsetTop;
+			content_four.moveTo(canvasX, canvasY);
+		})
+		.mousemove(function(e){
+			if(isDown !== false) {
+				canvasX = e.pageX - board_four.offsetLeft;
+				canvasY = e.pageY - board_four.offsetTop;
+				content_four.lineTo(canvasX, canvasY);
+              	if(remove_four=="True"){
+					content_four.strokeStyle = "#FFF";
+                }else{
+                	content_four.strokeStyle = "#000";
+                }
+				content_four.stroke();
+			}
+		})
+		.mouseup(function(e){
+			isDown = false;
+			content_four.closePath();
+		});
+	}
+	
+	// Touch Events Handlers
+	draw = {
+		started: false,
+		start: function(evt) {
+
+			content_four.beginPath();
+			content_four.moveTo(
+				evt.touches[0].pageX,
+				evt.touches[0].pageY
+			);
+
+			this.started = true;
+
+		},
+		move: function(evt) {
+
+			if (this.started) {
+				content_four.lineTo(
+					evt.touches[0].pageX,
+					evt.touches[0].pageY
+				);
+
+				if(remove_four=="True"){
+					content_four.strokeStyle = "#FFF";
+                }else{
+                	content_four.strokeStyle = "#000";
+                }
+				content_four.lineWidth = 5;
+				content_four.stroke();
+			}
+
+		},
+		end: function(evt) {
+			this.started = false;
+		}
+	};
+	
+	// Touch Events
+	board_four.addEventListener('touchstart', draw.start, false);
+	board_four.addEventListener('touchend', draw.end, false);
+	board_four.addEventListener('touchmove', draw.move, false);
+	
+	// Disable Page Move
+	document.body.addEventListener('touchmove',function(evt){
+		evt.preventDefault();
+	},false);
+};
+
+  function clear_func_f() {
+    var board_four = document.getElementById("board_four");
+	var content_four = board_four.getContext("2d");
+    
+    // Fill Window Width and Height
+    board_four.width = window.innerWidth;
+	board_four.height = window.innerHeight;
+	
+	// Erase board
+    content_four.clearRect(0,0,board_four.width,board_four.height);
+  }
+  function pen_four(){
+  	remove_four = "False";
+  }
+  function erase_four() {
+    remove_four = "True";
+  }
+  function minimize_f(){
+    document.getElementById("step_five").style.display = "inline";
+    board_four.style.display = "none";
+    document.getElementById("pen_four").style.display = "none"
+    document.getElementById("eraser_four").style.display = "none"
+    document.getElementById("clear_f").style.display = "none"
+    document.getElementById("close_f").style.display = "none"
+    img_four = content_four.getImageData(0,0,window.innerWidth,window.innerHeight)
+    if (img_four){
+        var replace_four = document.createElement("img")
+        replace_four.src = board_four.toDataURL()
+        replace_four.onclick = function(){
+        	start_four();
+        }
+		replace_four.id = "replaced_four"
+        replace_four.style.width = "125px"
+        replace_four.style.height = "216px"
+    	document.getElementById("step_four").src = replace_four.src
+        var steps = document.getElementById("steps")
+        steps.insertBefore(replace_four,document.getElementById("step_four"))
+    }  
+  }
+</script>
+<script>
+  var remove_five = "False";
+  var board_five;
+  var content_five;
+  var img_five;
+  function start_five() {
+    board_five = document.getElementById("board_five")
+    content_five = board_five.getContext("2d")
+    document.getElementById("step_one").style.display = "none";
+    document.getElementById("step_two").style.display = "none";
+    document.getElementById("step_three").style.display = "none";
+    document.getElementById("step_four").style.display = "none";
+    document.getElementById("step_five").style.display = "none";
+    document.getElementById("pen_five").style.display = "inline"
+    document.getElementById("eraser_five").style.display = "inline"
+    document.getElementById("clear_fi").style.display = "inline"
+    document.getElementById("close_fi").style.display = "inline"
+    board_five.style.display = "inline"
+    if(img_five){
+    	content_five.putImageData(img_five)
+    }
+    
+    // Fill Window Width and Height
+    
+    board_five.width = window.innerWidth;
+	board_five.height = window.innerHeight;
+	// Set Background Color
+    content_five.fillStyle="#fff";
+    content_five.fillRect(0,0,board_five.width,board_five.height);
+	
+    // Mouse Event Handlers
+	if(board_five){
+		var isDown = false;
+		var canvasX, canvasY;
+		content_five.lineWidth = 5;
+		
+		$(board_five)
+		.mousedown(function(e){
+			isDown = true;
+			content_five.beginPath();
+			canvasX = e.pageX - board_five.offsetLeft;
+			canvasY = e.pageY - board_five.offsetTop;
+			content_five.moveTo(canvasX, canvasY);
+		})
+		.mousemove(function(e){
+			if(isDown !== false) {
+				canvasX = e.pageX - board_five.offsetLeft;
+				canvasY = e.pageY - board_five.offsetTop;
+				content_five.lineTo(canvasX, canvasY);
+              	if(remove_five=="True"){
+					content_five.strokeStyle = "#FFF";
+                }else{
+                	content_five.strokeStyle = "#000";
+                }
+				content_five.stroke();
+			}
+		})
+		.mouseup(function(e){
+			isDown = false;
+			content_five.closePath();
+		});
+	}
+	
+	// Touch Events Handlers
+	draw = {
+		started: false,
+		start: function(evt) {
+
+			content_five.beginPath();
+			content_five.moveTo(
+				evt.touches[0].pageX,
+				evt.touches[0].pageY
+			);
+
+			this.started = true;
+
+		},
+		move: function(evt) {
+
+			if (this.started) {
+				content_five.lineTo(
+					evt.touches[0].pageX,
+					evt.touches[0].pageY
+				);
+
+				if(remove_five=="True"){
+					content_five.strokeStyle = "#FFF";
+                }else{
+                	content_five.strokeStyle = "#000";
+                }
+				content_five.lineWidth = 5;
+				content_five.stroke();
+			}
+
+		},
+		end: function(evt) {
+			this.started = false;
+		}
+	};
+	
+	// Touch Events
+	board_five.addEventListener('touchstart', draw.start, false);
+	board_five.addEventListener('touchend', draw.end, false);
+	board_five.addEventListener('touchmove', draw.move, false);
+	
+	// Disable Page Move
+	document.body.addEventListener('touchmove',function(evt){
+		evt.preventDefault();
+	},false);
+};
+
+  function clear_func_fi() {
+    var board_five = document.getElementById("board_five");
+	var content_five = board_five.getContext("2d");
+    
+    // Fill Window Width and Height
+    board_five.width = window.innerWidth;
+	board_five.height = window.innerHeight;
+	
+	// Erase board
+    content_five.clearRect(0,0,board_five.width,board_five.height);
+  }
+  function pen_five(){
+  	remove_five = "False";
+  }
+  function erase_five() {
+    remove_five = "True";
+  }
+  function minimize_fi(){
+    board_five.style.display = "none";
+    document.getElementById("pen_five").style.display = "none"
+    document.getElementById("eraser_five").style.display = "none"
+    document.getElementById("clear_fi").style.display = "none"
+    document.getElementById("close_fi").style.display = "none"
+    img_five = content_five.getImageData(0,0,window.innerWidth,window.innerHeight)
+	if (img_five){
+        var replace_five = document.createElement("img")
+        replace_five.src = board_five.toDataURL()
+        replace_five.onclick = function(){
+        	start_five();
+        }
+		replace_five.id = "replaced_five"
+        replace_five.style.width = "125px"
+        replace_five.style.height = "216px"
+    	document.getElementById("step_five").src = replace_five.src
+        var steps = document.getElementById("steps")
+        steps.insertBefore(replace_five,document.getElementById("step_five"))
+    }
   }
 </script>
 
 </head>
-<button id="pen" onClick="pen_mode()" style="display:none">Pen</button>
-<button id="eraser" onClick="erase()" style="display:none" >Eraser</button>
-<button id="clear" onClick="clear_func()" style="display:none" >Clear</button>
-<button id="close" onClick="minimize()" style="display:none" >Close</button>
+<button id="pen_one" onClick="pen_one()" style="display:none">Pen</button>
+<button id="eraser_one" onClick="erase_one()" style="display:none" >Eraser</button>
+<button id="pen_two" onClick="pen_two()" style="display:none">Pen</button>
+<button id="eraser_two" onClick="erase_two()" style="display:none" >Eraser</button>
+<button id="pen_three" onClick="pen_three()" style="display:none">Pen</button>
+<button id="eraser_three" onClick="erase_three()" style="display:none" >Eraser</button>
+<button id="pen_four" onClick="pen_four()" style="display:none">Pen</button>
+<button id="eraser_four" onClick="erase_four()" style="display:none" >Eraser</button>
+<button id="pen_five" onClick="pen_five()" style="display:none">Pen</button>
+<button id="eraser_five" onClick="erase_five()" style="display:none" >Eraser</button>
+<button id="clear_o" onClick="clear_func_o()" style="display:none" >Clear</button>
+<button id="close_o" onClick="minimize_o()" style="display:none" >Close</button>
 <body>
-	<canvas id="board">
+	<canvas id="board_one">
 		Your browser does not support this feature.
 	</canvas>
 </body>
+<button id="clear_t" onClick="clear_func_t()" style="display:none" >Clear</button>
+<button id="close_t" onClick="minimize_t()" style="display:none" >Close</button>
+<body>
+	<canvas id="board_two">
+		Your browser does not support this feature.
+	</canvas>
+</body>
+<button id="clear_th" onClick="clear_func_th()" style="display:none" >Clear</button>
+<button id="close_th" onClick="minimize_th()" style="display:none" >Close</button>
+<body>
+	<canvas id="board_three">
+		Your browser does not support this feature.
+	</canvas>
+</body>
+<button id="clear_f" onClick="clear_func_f()" style="display:none" >Clear</button>
+<button id="close_f" onClick="minimize_f()" style="display:none" >Close</button>
+<body>
+	<canvas id="board_four">
+		Your browser does not support this feature.
+	</canvas>
+</body>
+<button id="clear_fi" onClick="clear_func_fi()" style="display:none" >Clear</button>
+<button id="close_fi" onClick="minimize_fi()" style="display:none" >Close</button>
+<body>
+	<canvas id="board_five">
+		Your browser does not support this feature.
+	</canvas>
+</body>
+
 </html>
